@@ -19,6 +19,17 @@
   },
   "initialPermissions": {
     "snap_dialog": {},
+    "endowment:cronjob": {
+      "jobs": [
+        {
+          "expression": "*/1 * * * *",
+          "request": {
+            "method": "ensExpiration"
+          }
+        }
+      ]
+    },
+    "endowment:network-access": {},
     "endowment:rpc": {
       "dapps": true,
       "snaps": false

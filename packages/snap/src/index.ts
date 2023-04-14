@@ -1,4 +1,4 @@
-import { OnRpcRequestHandler } from '@metamask/snaps-types';
+import { OnCronjobHandler, OnRpcRequestHandler } from '@metamask/snaps-types';
 import { panel, text } from '@metamask/snaps-ui';
 
 /**
@@ -31,3 +31,24 @@ export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
       throw new Error('Method not found.');
   }
 };
+
+export const onCronJob: OnCronjobHandler = async ({ request }) => {
+  console.log('cron job initiatied');
+
+  switch (request.method) {
+    case 'ensExpiration': {
+      return snap.request({
+        method: 'snap_notify',
+        params: {
+          type: 'inApp',
+          message: `Hello, world!`,
+        },
+      });
+    }
+
+    default:
+      throw new Error('Method not found.');
+  }
+};
+
+// TODO: use `wallet_invokeSnap` with `snap_manageState` to manage the names you want reminders for https://docs.metamask.io/snaps/reference/rpc-api#wallet_invokesnap
