@@ -50,5 +50,18 @@ export function getRelativeDay(expiration: string) {
  * Get the ENS names owned by the connected account.
  */
 export async function getOwnedEnsNames() {
+  // TODO: Get this from the ENS Subgraph https://thegraph.com/hosted-service/subgraph/ensdomains/ens
+  /* 
+    {
+      domains(where: {
+        owner: "0x179a862703a4adfb29896552df9e307980d19285"
+      }) {
+        name
+        registration {
+          expiryDate
+        }
+      }
+    }
+   */
   return ['gregskril.eth'];
 }
