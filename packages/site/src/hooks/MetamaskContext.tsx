@@ -110,7 +110,7 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
           type: MetamaskActions.SetError,
           payload: undefined,
         });
-      }, 10000);
+      }, 15 * 1000);
     }
 
     return () => {

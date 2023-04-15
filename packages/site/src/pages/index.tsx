@@ -1,13 +1,8 @@
 import { useContext } from 'react';
-import styled from 'styled-components';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import { connectSnap, getSnap, shouldDisplayReconnectButton } from '../utils';
-import {
-  ConnectButton,
-  InstallFlaskButton,
-  ReconnectButton,
-  Card,
-} from '../components';
+import { Button, Helper, Typography } from '@ensdomains/thorin';
+import '../assets/style.css';
 
 export default function Index() {
   const [state, dispatch] = useContext(MetaMaskContext);
@@ -27,55 +22,60 @@ export default function Index() {
     }
   };
 
+  if (!state.isFlask) {
+    return (
+      <main>
+        <Helper>
+          <span>
+            You need{' '}
+            <a
+              href="https://metamask.io/flask/"
+              target="_blank"
+              style={{ fontWeight: 'bold' }}
+            >
+              MetaMask Flash
+            </a>{' '}
+            to use Snaps.
+          </span>
+        </Helper>
+      </main>
+    );
+  }
+
   return (
     <main>
       {state.error && (
-        <p>
+        <Helper type="error">
           <b>An error happened:</b> {state.error.message}
-        </p>
+        </Helper>
       )}
-      {!state.isFlask && (
-        <Card
-          content={{
-            title: 'Install',
-            description:
-              'Snaps is pre-release software only available in MetaMask Flask, a canary distribution for developers with access to upcoming features.',
-            button: <InstallFlaskButton />,
-          }}
-          fullWidth
-        />
-      )}
+
       {!state.installedSnap && (
-        <Card
-          content={{
-            title: 'Connect',
-            description:
-              'Get started by connecting to and installing the example snap.',
-            button: (
-              <ConnectButton
-                onClick={handleConnectClick}
-                disabled={!state.isFlask}
-              />
-            ),
-          }}
-          disabled={!state.isFlask}
-        />
+        <div className="row">
+          <Typography>
+            Get started by connecting to and installing the example snap.
+          </Typography>
+          <Button onClick={handleConnectClick} disabled={!state.isFlask}>
+            Connect MetaMask Flask
+          </Button>
+        </div>
       )}
+
       {shouldDisplayReconnectButton(state.installedSnap) && (
-        <Card
-          content={{
-            title: 'Reconnect',
-            description:
-              'While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.',
-            button: (
-              <ReconnectButton
-                onClick={handleConnectClick}
-                disabled={!state.installedSnap}
-              />
-            ),
-          }}
-          disabled={!state.installedSnap}
-        />
+        <>
+          <div className="row">
+            <Typography style={{ textAlign: 'center' }}>
+              While connected to a local running snap this button will always be
+              displayed in order to update the snap if a change is made.
+            </Typography>
+            <Button
+              onClick={handleConnectClick}
+              disabled={!state.installedSnap}
+            >
+              Refresh Snap
+            </Button>
+          </div>
+        </>
       )}
     </main>
   );
