@@ -21,9 +21,5 @@ export type AppProps = {
 };
 
 export const App: FunctionComponent<AppProps> = ({ children }) => {
-  return (
-    <>
-      <Wrapper>{children}</Wrapper>
-    </>
-  );
+  return <Wrapper>{children}</Wrapper>;
 };
