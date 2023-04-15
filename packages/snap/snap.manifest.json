@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
   "description": "A Snap to remind you about ENS name expirations.",
-  "proposedName": "ENS Snap",
+  "proposedName": "ENS Expiry Notice",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "RrQ7hOLNIVnxlQo04M9PkBguxhjtE90PV2Happ5Q8wU=",
+    "shasum": "zEeJ6mJZcHDfg5ufFnZvu+MhSQWQSystGWW1LzkITLg=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
