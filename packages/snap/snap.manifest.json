@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example Snap",
+  "description": "A Snap to remind you about ENS name expirations.",
+  "proposedName": "ENS Snap",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "P/JQBtmFokbXAfXWnCydVxLl7Cs+hi2abstde+A2CsQ=",
+    "shasum": "jXM8MmniMBZ68bxKsO1DhZugAifLGcTy89cndKgerQs=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -19,6 +19,7 @@
   },
   "initialPermissions": {
     "snap_dialog": {},
+    "snap_notify": {},
     "endowment:cronjob": {
       "jobs": [
         {
@@ -29,11 +30,7 @@
         }
       ]
     },
-    "endowment:network-access": {},
-    "endowment:rpc": {
-      "dapps": true,
-      "snaps": false
-    }
+    "endowment:network-access": {}
   },
   "manifestVersion": "0.1"
 }
