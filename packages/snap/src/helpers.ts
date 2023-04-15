@@ -44,12 +44,17 @@ export function getRelativeDay(expiration: number) {
  * @param address - ETH address to lookup.
  */
 export async function getOwnedEnsNames(address: string) {
+  const thirtyDaysFromNow = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60;
   const endpoint =
     'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli';
+
   const query = `
     {
       domains(where: {
         owner: "${address.toLowerCase()}"
+        registration_: {
+          expiryDate_lte: ${thirtyDaysFromNow}
+        }
       }) {
         name
         registration {
