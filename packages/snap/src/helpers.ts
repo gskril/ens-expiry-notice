@@ -1,3 +1,5 @@
+import { computeAddress } from '@ethersproject/transactions';
+
 /**
  * Check the expiration date of an ENS name.
  *
@@ -48,8 +50,10 @@ export function getRelativeDay(expiration: string) {
 
 /**
  * Get the ENS names owned by the connected account.
+ *
+ * @param address - ETH address to lookup.
  */
-export async function getOwnedEnsNames() {
+export async function getOwnedEnsNames(address: string) {
   // TODO: Get this from the ENS Subgraph https://thegraph.com/hosted-service/subgraph/ensdomains/ens
   /* 
     {
@@ -63,5 +67,23 @@ export async function getOwnedEnsNames() {
       }
     }
    */
+
+  console.log(address);
   return ['gregskril.eth'];
+}
+
+/**
+ * Get the public address of the first MetaMask account.
+ */
+export async function getAddress() {
+  const publicKey = await snap.request({
+    method: 'snap_getBip32PublicKey',
+    params: {
+      path: ['m', "44'", "60'", "0'", '0', '0'],
+      curve: 'secp256k1',
+      compressed: true,
+    },
+  });
+
+  return computeAddress(publicKey);
 }

@@ -1,5 +1,7 @@
 import { OnCronjobHandler } from '@metamask/snaps-types';
+
 import {
+  getAddress,
   getExpirationTimestamp,
   getOwnedEnsNames,
   getRelativeDay,
@@ -9,17 +11,8 @@ import {
 export const onCronjob: OnCronjobHandler = async ({ request }) => {
   switch (request.method) {
     case 'ensExpiration': {
-      const connectedAccount = await snap.request({
-        method: 'snap_getBip32PublicKey',
-        params: {
-          path: ['m', "44'", "60'", "0'", "0'", '0'],
-          curve: 'secp256k1',
-        },
-      });
-
-      console.log(connectedAccount);
-
-      const ownedEnsNames = await getOwnedEnsNames();
+      const address = await getAddress();
+      const ownedEnsNames = await getOwnedEnsNames(address);
 
       for (const name of ownedEnsNames) {
         const expiration = await getExpirationTimestamp(name);

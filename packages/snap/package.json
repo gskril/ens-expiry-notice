@@ -57,5 +57,8 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "@ethersproject/transactions": "^5.7.0"
   }
 }
