@@ -1,21 +1,14 @@
 import { useContext } from 'react';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import { connectSnap, getSnap } from '../utils';
 import { HeaderButtons } from './Buttons';
 
 const HeaderWrapper = styled.header``;
 
-const Title = styled.p``;
-
 const RightContainer = styled.div``;
 
-export const Header = ({
-  handleToggleClick,
-}: {
-  handleToggleClick(): void;
-}) => {
-  const theme = useTheme();
+export const Header = () => {
   const [state, dispatch] = useContext(MetaMaskContext);
 
   const handleConnectClick = async () => {

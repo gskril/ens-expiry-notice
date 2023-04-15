@@ -1,28 +1,18 @@
-import { createContext, FunctionComponent, ReactNode, useState } from 'react';
-import { getThemePreference, setLocalStorage } from './utils';
+import { FunctionComponent, ReactNode } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { ThorinGlobalStyles, lightTheme } from '@ensdomains/thorin';
+
 import { MetaMaskProvider } from './hooks';
 
 export type RootProps = {
   children: ReactNode;
 };
 
-type ToggleTheme = () => void;
-
-export const ToggleThemeContext = createContext<ToggleTheme>(
-  (): void => undefined,
-);
-
 export const Root: FunctionComponent<RootProps> = ({ children }) => {
-  const [darkTheme, setDarkTheme] = useState(getThemePreference());
-
-  const toggleTheme: ToggleTheme = () => {
-    setLocalStorage('theme', darkTheme ? 'light' : 'dark');
-    setDarkTheme(!darkTheme);
-  };
-
   return (
-    <ToggleThemeContext.Provider value={toggleTheme}>
+    <ThemeProvider theme={lightTheme}>
+      <ThorinGlobalStyles />
       <MetaMaskProvider>{children}</MetaMaskProvider>
-    </ToggleThemeContext.Provider>
+    </ThemeProvider>
   );
 };
