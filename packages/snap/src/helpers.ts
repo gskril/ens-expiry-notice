@@ -1,15 +1,5 @@
 import { computeAddress } from '@ethersproject/transactions';
-
-/**
- * Check the expiration date of an ENS name.
- *
- * @param name - ENS name.
- */
-export async function getExpirationTimestamp(name: string) {
-  const url = `https://ens-expiration.vercel.app/${name}`;
-  const response = await fetch(url).then((res) => res.json());
-  return response.expiration as string;
-}
+import { SubgraphResponse } from './types';
 
 /**
  * Trigger both types of notifications.
@@ -37,10 +27,10 @@ export function notify(message: string) {
 /**
  * Convert an ENS name expiration date to a relative day count.
  *
- * @param expiration - The string representation of an ENS name expiration date.
+ * @param expiration - The timestamp of an ENS name's expiration.
  * @returns The relative day count.
  */
-export function getRelativeDay(expiration: string) {
+export function getRelativeDay(expiration: number) {
   const now = new Date();
   const expirationDate = new Date(expiration);
   const timeDiff = expirationDate.getTime() - now.getTime();
@@ -77,9 +67,15 @@ export async function getOwnedEnsNames(address: string) {
     body: JSON.stringify({ query }),
   });
 
-  const json = await response.json();
-  console.log(address, json);
-  return ['gregskril.eth'];
+  const json = (await response.json()) as SubgraphResponse;
+  return json.data.domains.map((domain) => {
+    const timestampStr = domain.registration.expiryDate;
+
+    return {
+      name: domain.name,
+      expiration: timestampStr ? parseFloat(timestampStr) * 1000 : null,
+    };
+  });
 }
 
 /**

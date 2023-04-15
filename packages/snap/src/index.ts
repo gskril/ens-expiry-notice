@@ -2,7 +2,6 @@ import { OnCronjobHandler } from '@metamask/snaps-types';
 
 import {
   getAddress,
-  getExpirationTimestamp,
   getOwnedEnsNames,
   getRelativeDay,
   notify,
@@ -14,10 +13,20 @@ export const onCronjob: OnCronjobHandler = async ({ request }) => {
       const address = await getAddress();
       const ownedEnsNames = await getOwnedEnsNames(address);
 
-      for (const name of ownedEnsNames) {
-        const expiration = await getExpirationTimestamp(name);
+      for (const ownedName of ownedEnsNames) {
+        const { name, expiration } = ownedName;
+
+        if (!expiration) {
+          continue;
+        }
+
         const relativeExpiration = getRelativeDay(expiration);
-        const message = `${name} expires in ${relativeExpiration}.`;
+        let message = `${name} expires in ${relativeExpiration}`;
+
+        if (name.length > 25) {
+          message = `You have an ENS name that expires in ${relativeExpiration}`;
+        }
+
         return notify(message);
       }
 
