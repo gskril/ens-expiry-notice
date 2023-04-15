@@ -45,3 +45,10 @@ export function getRelativeDay(expiration: string) {
   const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
   return `${dayDiff} days`;
 }
+
+/**
+ * Get the ENS names owned by the connected account.
+ */
+export async function getOwnedEnsNames() {
+  return ['gregskril.eth'];
+}
