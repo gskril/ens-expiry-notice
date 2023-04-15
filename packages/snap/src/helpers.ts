@@ -54,11 +54,12 @@ export function getRelativeDay(expiration: string) {
  * @param address - ETH address to lookup.
  */
 export async function getOwnedEnsNames(address: string) {
-  // TODO: Get this from the ENS Subgraph https://thegraph.com/hosted-service/subgraph/ensdomains/ens
-  /* 
+  const endpoint =
+    'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli';
+  const query = `
     {
       domains(where: {
-        owner: "0x179a862703a4adfb29896552df9e307980d19285"
+        owner: "${address.toLowerCase()}"
       }) {
         name
         registration {
@@ -66,9 +67,18 @@ export async function getOwnedEnsNames(address: string) {
         }
       }
     }
-   */
+  `;
 
-  console.log(address);
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const json = await response.json();
+  console.log(address, json);
   return ['gregskril.eth'];
 }
 
