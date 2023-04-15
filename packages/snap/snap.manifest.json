@@ -7,7 +7,7 @@
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "7Qmfa9dhi3iqXUiGGHRdcWAcAYWgyJKNhJ1hMc12GzI=",
+    "shasum": "VqbHkrlakFsUpX6LFvxlsC5Up0fjc99wGHx4wL+NF2M=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -30,7 +30,7 @@
     "endowment:cronjob": {
       "jobs": [
         {
-          "expression": "*/1 * * * *",
+          "expression": "*/60 * * * *",
           "request": {
             "method": "ensExpiration"
           }
