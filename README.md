@@ -8,7 +8,7 @@ It currently runs on goerli, but switching to mainnet is trivial (line 50 of [/p
 
 Install [MetaMask Flask](https://metamask.io/flask/) and import the following mnemonic: `off boy shoulder praise promote bracket thank six fog level document predict`. Switch to the Goerli network.
 
-Clone [the repo](https://github.com/gskril/ens-renewal-snap) and setup the development environment:
+Clone [the repo](https://github.com/gskril/ens-expiry-notice) and setup the development environment:
 
 ```shell
 yarn install && yarn start

@@ -59,7 +59,7 @@ export default function Index() {
 
   return (
     <main>
-      <StyledHeading as="h1">ENS Expiry Notice </StyledHeading>
+      <StyledHeading as="h1">ENS Expiry Notice</StyledHeading>
 
       {state.error && (
         <Helper type="error">
@@ -70,7 +70,7 @@ export default function Index() {
       {!state.installedSnap && (
         <div className="row">
           <Typography>
-            Get started by connecting to and installing the example snap.
+            Get started by connecting to and installing the snap.
           </Typography>
           <StyledButton onClick={handleConnectClick} disabled={!state.isFlask}>
             Connect MetaMask Flask
