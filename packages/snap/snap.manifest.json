@@ -22,14 +22,7 @@
     "endowment:network-access": {},
     "snap_getBip32PublicKey": [
       {
-        "path": [
-          "m",
-          "44'",
-          "60'",
-          "0'",
-          "0",
-          "0"
-        ],
+        "path": ["m", "44'", "60'", "0'", "0", "0"],
         "curve": "secp256k1",
         "compressed": true
       }
@@ -37,7 +30,7 @@
     "endowment:cronjob": {
       "jobs": [
         {
-          "expression": "*/1 * * * *",
+          "expression": "0 13 * * 1",
           "request": {
             "method": "ensExpiration"
           }

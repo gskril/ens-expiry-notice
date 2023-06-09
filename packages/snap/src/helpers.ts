@@ -47,9 +47,8 @@ export async function getOwnedEnsNames(address: string) {
   const fourtyFiveDaysFromNow =
     Math.floor(Date.now() / 1000) + 45 * 24 * 60 * 60;
 
-  // mainnet subgraph is https://api.thegraph.com/subgraphs/name/ensdomains/ens
-  const endpoint =
-    'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli';
+  // goerli subgraph is https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli
+  const endpoint = 'https://api.thegraph.com/subgraphs/name/ensdomains/ens';
 
   const query = `
     {
