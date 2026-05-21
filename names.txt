@@ -1,0 +1,2 @@
+# ENS names to monitor for expiration
+# One name per line, must be second-level .eth domains (e.g., example.eth)

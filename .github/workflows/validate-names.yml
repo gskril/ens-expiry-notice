@@ -1,0 +1,58 @@
+name: Validate ENS Names
+
+on:
+  push:
+    paths:
+      - 'names.txt'
+  pull_request:
+    paths:
+      - 'names.txt'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate ENS names
+        run: |
+          if [ ! -f names.txt ]; then
+            echo "names.txt not found"
+            exit 0
+          fi
+
+          errors=0
+
+          # Check for duplicates
+          duplicates=$(sort names.txt | uniq -d)
+          if [ -n "$duplicates" ]; then
+            echo "::error::Duplicate names found:"
+            echo "$duplicates"
+            errors=1
+          fi
+
+          # Validate each name is a second-level .eth domain
+          while IFS= read -r name || [ -n "$name" ]; do
+            # Skip empty lines and comments
+            [[ -z "$name" || "$name" =~ ^# ]] && continue
+
+            # Check format: must end with .eth and have exactly one dot
+            dot_count=$(echo "$name" | tr -cd '.' | wc -c)
+
+            if [ "$dot_count" -ne 1 ]; then
+              echo "::error::Invalid name '$name': must have exactly one '.' (second-level domain only)"
+              errors=1
+            elif [[ ! "$name" =~ \.eth$ ]]; then
+              echo "::error::Invalid name '$name': must end with .eth"
+              errors=1
+            elif [[ "$name" =~ [A-Z] ]]; then
+              echo "::error::Invalid name '$name': must be lowercase"
+              errors=1
+            fi
+          done < names.txt
+
+          if [ "$errors" -eq 1 ]; then
+            exit 1
+          fi
+
+          echo "All names are valid!"
