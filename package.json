@@ -16,9 +16,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "resolutions": {
-    "immutable": "4.3.9"
-  },
   "scripts": {
     "build": "yarn workspaces foreach --parallel --topological --verbose run build",
     "dev": "yarn workspaces foreach --parallel --interlaced --verbose run dev",
